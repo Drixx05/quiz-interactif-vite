@@ -1,8 +1,6 @@
 export const VALIDATE_QUESTION = "VALIDATE_QUESTION";
-export const SET_CATEGORY_FILTER = "SET_CATEGORY_FILTER";
 
 export const initialState = {
-	selectedCategory: "Toutes",
 	questions: [
 		{
 			id: 1,
@@ -38,11 +36,6 @@ export function quizReducer(state, action) {
 						? { ...question, validation: action.validation }
 						: question
 				),
-			};
-		case SET_CATEGORY_FILTER:
-			return {
-				...state,
-				selectedCategory: action.category,
 			};
 		default:
 			return state;

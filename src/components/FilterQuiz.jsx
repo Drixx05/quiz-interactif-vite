@@ -1,26 +1,29 @@
-import { Dropdown, DropdownButton } from "react-bootstrap";
-import { useQuiz } from "../hooks/useQuiz";
+import { Dropdown } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 
-function FilterQuiz() {
-	const { selectedCategory, setCategoryFilter } = useQuiz();
-
-	const handleSelect = (eventKey) => {
-		setCategoryFilter(eventKey);
+function FilterQuiz({ selectedCategory, onCategoryChange }) {
+	const handleSelect = (category) => {
+		onCategoryChange(category);
 	};
 
 	return (
-		<DropdownButton
-			id="dropdown-basic-button"
-			title={selectedCategory}
-			variant="outline-secondary"
-			style={{ width: "100%" }}
-			onSelect={handleSelect}
-		>
-			<Dropdown.Item eventKey="Toutes">Toutes</Dropdown.Item>
-			<Dropdown.Item eventKey="Math">Math</Dropdown.Item>
-			<Dropdown.Item eventKey="Science">Science</Dropdown.Item>
-			<Dropdown.Item eventKey="Histoire">Histoire</Dropdown.Item>
-		</DropdownButton>
+		<Dropdown className="w-100">
+			<Dropdown.Toggle variant="outline-secondary" className="w-100 text-start">
+				{selectedCategory}
+			</Dropdown.Toggle>
+			<Dropdown.Menu className="w-100">
+				<Dropdown.Item onClick={() => handleSelect("Toutes")}>
+					Toutes
+				</Dropdown.Item>
+				<Dropdown.Item onClick={() => handleSelect("Math")}>Math</Dropdown.Item>
+				<Dropdown.Item onClick={() => handleSelect("Science")}>
+					Science
+				</Dropdown.Item>
+				<Dropdown.Item onClick={() => handleSelect("Histoire")}>
+					Histoire
+				</Dropdown.Item>
+			</Dropdown.Menu>
+		</Dropdown>
 	);
 }
 

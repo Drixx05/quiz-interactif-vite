@@ -1,32 +1,32 @@
+import { useContext } from "react";
 import { Accordion, Button } from "react-bootstrap";
-import { useQuiz } from "../hooks/useQuiz";
+import { QuizContext } from "../contexts/QuizContext";
 
-function QuizAccordion() {
-	const { questions, validateQuestion } = useQuiz();
+function QuizAccordion({ selectedCategory }) {
+	const { questions, validateQuestion } = useContext(QuizContext);
 
 	const handleValidation = (questionId, validation) => {
 		validateQuestion(questionId, validation);
 	};
 
+	// Filtrage des questions selon la catégorie sélectionnée
+	const filteredQuestions =
+		selectedCategory === "Toutes"
+			? questions
+			: questions.filter((q) => q.category === selectedCategory);
+
 	return (
 		<Accordion>
-			{questions.map((question) => (
+			{filteredQuestions.map((question) => (
 				<Accordion.Item eventKey={question.id.toString()} key={question.id}>
 					<Accordion.Header>
-						<div
-							style={{
-								display: "flex",
-								justifyContent: "space-between",
-								width: "100%",
-							}}
-						>
+						<div className="d-flex justify-content-between w-100">
 							<span>{question.question}</span>
 							{question.validation && (
 								<span
-									className={`badge ${
+									className={`badge me-3 ${
 										question.validation === "Juste" ? "bg-success" : "bg-danger"
 									}`}
-									style={{ marginRight: "20px" }}
 								>
 									{question.validation}
 								</span>
@@ -35,9 +35,9 @@ function QuizAccordion() {
 					</Accordion.Header>
 					<Accordion.Body>
 						<div>
-							<p>
-								<strong>Réponse :</strong> {question.answer}
-							</p>
+							<strong>Réponse :</strong>
+							<br />
+							{question.answer}
 							<div className="mt-3">
 								<Button
 									variant="success"
