@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Accordion, Button } from "react-bootstrap";
+import { Accordion, Button, Card } from "react-bootstrap";
 import { QuizContext } from "../contexts/QuizContext";
 
 function QuizAccordion({ selectedCategory }) {
@@ -9,7 +9,6 @@ function QuizAccordion({ selectedCategory }) {
 		validateQuestion(questionId, validation);
 	};
 
-	// Filtrage des questions selon la catégorie sélectionnée
 	const filteredQuestions =
 		selectedCategory === "Toutes"
 			? questions
@@ -34,28 +33,29 @@ function QuizAccordion({ selectedCategory }) {
 						</div>
 					</Accordion.Header>
 					<Accordion.Body>
-						<div>
-							<strong>Réponse :</strong>
-							<br />
-							{question.answer}
-							<div className="mt-3">
-								<Button
-									variant="success"
-									className="me-2"
-									disabled={question.validation !== null}
-									onClick={() => handleValidation(question.id, "Juste")}
-								>
-									Juste
-								</Button>
-								<Button
-									variant="danger"
-									disabled={question.validation !== null}
-									onClick={() => handleValidation(question.id, "Faux")}
-								>
-									Faux
-								</Button>
-							</div>
-						</div>
+						<Card>
+							<Card.Body>
+								<h5>Réponse</h5>
+								{question.answer}
+								<div className="mt-3">
+									<Button
+										variant="success"
+										className="me-2"
+										disabled={question.validation !== null}
+										onClick={() => handleValidation(question.id, "Juste")}
+									>
+										Juste
+									</Button>
+									<Button
+										variant="danger"
+										disabled={question.validation !== null}
+										onClick={() => handleValidation(question.id, "Faux")}
+									>
+										Faux
+									</Button>
+								</div>
+							</Card.Body>
+						</Card>
 					</Accordion.Body>
 				</Accordion.Item>
 			))}

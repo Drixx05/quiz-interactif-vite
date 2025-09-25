@@ -7,11 +7,11 @@ function FilterQuiz({ selectedCategory, onCategoryChange }) {
 	};
 
 	return (
-		<Dropdown className="w-100">
+		<Dropdown className="w-100 mb-4">
 			<Dropdown.Toggle variant="outline-secondary" className="w-100 text-start">
 				{selectedCategory}
 			</Dropdown.Toggle>
-			<Dropdown.Menu className="w-100">
+			<Dropdown.Menu className="w-100" >
 				<Dropdown.Item onClick={() => handleSelect("Toutes")}>
 					Toutes
 				</Dropdown.Item>
